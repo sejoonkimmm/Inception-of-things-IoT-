@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "centos/7"
+  config.vm.box_url = "https://vagrantcloud.com/centos/7"
+
+  config.vm.define "sejokimS" do |sejokimS|
+    sejokimS.vm.hostname = "sejokimS"
+    sejokimS.vm.network "private network", type: "static", ip: "192.168.56.110"
+    sejokimS.vm.provider "virtualbox" do |vb|
+      vb.name = "sejokimS"
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+    sejokimS.vm.provision "shell", path: "./scripts/controlnode.sh"
+  end
+
+  config.vm.define "sejokimSW" do |sejokimSW|
+    sejokimSW.vm.hostname = "sejokimSW"
+    sejokimSW.vm.network "private network", type: "static", ip: "192.168.56.111"
+    sejokimSW.vm.provider "virtualbox" do |vb|
+      vb.name = "sejokimSW"
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+    sejokimSW.vm.provision "shell", path: "./scripts/workernode.sh"
+  end
+end
+
