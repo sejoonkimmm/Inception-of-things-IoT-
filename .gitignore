@@ -11,3 +11,9 @@
 /p1/.vagrant
 
 /p1/2024*
+
+**/vagrant_cwd
+
+**/ubuntu-bionic-*
+
+**/.vagrant
