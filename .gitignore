@@ -1,0 +1,13 @@
+# .vagrant file ignore
+/p1/.*
+
+/p2/.*
+
+/p3/.*
+
+/bonus/.*
+
+# .vagrant file ignore
+/p1/.vagrant
+
+/p1/2024*

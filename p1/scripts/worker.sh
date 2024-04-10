@@ -1,27 +1,18 @@
 #!/bin/bash
 
-# Set the colors for displaying information in the terminal
-
-GREEN="\033[32m"
-RED="\033[31m"
-RESET="\033[0m"
-
-# Ñreating an environment variable for installing the worker node
-# https://docs.k3s.io/installation/configuration#configuration-file
 
 if export INSTALL_K3S_EXEC="agent --server https://192.168.56.110:6443 -t $(cat /vagrant/token.env) --node-ip=192.168.56.111"; then
-        echo -e "${GREEN}export INSTALL_K3S_EXEC SUCCEEDED${RESET}"
+        echo -e "export INSTALL_K3S_EXEC SUCCEEDED"
 else
-        echo -e "${RED}export INSTALL_K3S_EXEC FAILED${RESET}"
+        echo -e "export INSTALL_K3S_EXEC FAILED"
 fi
 
-# Install worker node
-# https://docs.k3s.io/quick-start
+# workernode를 설정한다.
 
 if curl -sfL https://get.k3s.io | sh -; then
-	echo -e "${GREEN}K3s WORKER installation SUCCEEDED${RESET}"
+	echo -e "K3s WORKER installation SUCCEEDED"
 else
-	echo -e "${RED}K3s WORKER installation FAILED${RESET}"
+	echo -e "K3s WORKER installation FAILED"
 fi
 
 # The command "sudo ip link" add eth1 type dummy creates a virtual network interface named eth1
@@ -29,11 +20,9 @@ fi
 # The final part, sudo ip link set eth1 up, activates the eth1 interface.
 
 if sudo ip link add eth1 type dummy && sudo ip addr add 192.168.56.111/24 dev eth1 && sudo ip link set eth1 up; then
-echo -e "${GREEN}add eth1 SUCCEESSFULLY${RESET}"
+echo -e "add eth1 SUCCEESSFULLY"
 else
-echo -e "${RED}add eth1 FAILED${RESET}"
+echo -e "add eth1 FAILED"
 fi
-
-# We delete the token for security, and also so that when restarting, a new token is used and not the previously created one
 
 sudo rm /vagrant/token.env
