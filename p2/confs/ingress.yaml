@@ -6,7 +6,7 @@ metadata:
   name: ingress
 spec:
   rules:
-  - host: sejokimapp1.local
+  - host: sejokimapp1.com
     http:
       paths:
       - pathType: Prefix
@@ -16,7 +16,7 @@ spec:
             name: app1-service
             port:
               number: 80
-  - host: sejokimapp2.local
+  - host: sejokimapp2.com
     http:
       paths:
       - pathType: Prefix
@@ -26,7 +26,7 @@ spec:
             name: app2-service
             port:
               number: 80
-  - host: sejokimapp3.local
+  - host: sejokimapp3.com
     http:
       paths:
       - pathType: Prefix
@@ -36,9 +36,13 @@ spec:
             name: app3-service
             port:
               number: 80
-
-  defaultBackend:
-    service:
-      name: app3-service
-      port:
-        number: 80
+  - host:
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: app3-service
+            port:
+              number: 80

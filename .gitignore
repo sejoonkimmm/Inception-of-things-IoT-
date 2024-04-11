@@ -17,3 +17,5 @@
 **/ubuntu-bionic-*
 
 **/.vagrant
+
+**/vagrant_cwd

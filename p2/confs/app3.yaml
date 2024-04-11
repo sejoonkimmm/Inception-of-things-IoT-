@@ -19,7 +19,7 @@ spec:
         - containerPort: 8080
         env:
         - name: MESSAGE
-          value: app 3의 특징은 뭔가 잘못됐을 때 오는 곳입니다.
+          value: app 3의 특징은 호스트를 지정하지 않고 접근했을 때 자동으로 접근되는 것입니다.
 
 ---
 apiVersion: v1
