@@ -2,6 +2,8 @@
 
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
+BLUE=$(tput setaf 4)
+
 RESET=$(tput sgr0)
 
 kubectl config use-context k3d-sejokimS
@@ -32,23 +34,21 @@ if ! which argocd >/dev/null 2>&1; then
 fi
 
 kubectl port-forward svc/argocd-server -n argocd 8081:443 > /dev/null 2>&1 &
-echo "이제 ArgoCD를 http://localhost:8081로 접근할 수 있습니다."
+echo "${BLUE}이제 ArgoCD를 http://localhost:8081로 접근할 수 있습니다.${RESET}"
 
-# kubectl port-forward svc/service-sejokimapp 8888:8080 -n dev > /dev/null 2>&1 &
-# echo "wil42/playground 앱이 http://localhost:8888에서 배포되고 있습니다."
 
 setup_port() {
     kubectl port-forward svc/service-sejokimapp 8888:8080 -n dev > /dev/null 2>&1 &
     PF_PID=$!
-    echo "wil42/playground 앱이 http://localhost:8888에서 배포되고 있습니다."
+    echo "${GREEN}wil42/playground 앱이 http://localhost:8888에서 배포되고 있습니다.${RESET}"
 }
 
 # setup_port
 
 wait_for_pods() {
-    echo "파드가 모두 준비될 때까지 대기 중..."
+    echo "${GREEN}파드가 모두 준비될 때까지 대기 중...${RESET}"
     kubectl wait --for=condition=Ready pod -l app=sejokimapp -n dev --timeout=60s
-    echo "argoCD 기본 admin 계정 비밀번호 : $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)"
+    echo "${BLUE}argoCD 기본 admin 계정 비밀번호 : $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)${RESET}"
 }
 
 get_initial_resource_version() {
@@ -60,7 +60,7 @@ watch_for_changes() {
   while true; do
     NEW_HASH=$(kubectl get pod -n dev -l app=sejokimapp -o jsonpath='{.items[0].metadata.resourceVersion}' 2>/dev/null)
     if [ "$NEW_HASH" != "$LAST_HASH" ]; then
-      echo "파드 변화 감지됨. 포트 포워딩을 재시작합니다."
+      echo "${GREEN}파드 변화 감지됨. 포트 포워딩을 재시작합니다.${RESET}"
       kill $PF_PID
       wait_for_pods
       setup_port
