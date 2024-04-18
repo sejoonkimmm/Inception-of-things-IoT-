@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/sejoonkimmm/iot-argoCD.git
+    repoURL: https://github.com/sejoonkimmm/sejokim-argocd.git
     targetRevision: HEAD
     path: deploy # deploy 폴더 내에 있는 쿠버네티스 매니페스트 파일을 사용하여 dev namespace에 애플리케이션을 배포할 것이다.
   destination:
