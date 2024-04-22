@@ -4,10 +4,11 @@
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 BLUE=$(tput setaf 4)
-
 RESET=$(tput sgr0)
 
 sudo ip addr replace 192.168.56.110/24 brd 192.168.56.255 dev eth1
+
+sudo ifconfig eth1 broadcast 192.168.255.255
 
 ip link set eth1 up
 

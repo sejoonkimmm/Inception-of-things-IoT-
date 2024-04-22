@@ -2,7 +2,8 @@
 # 마스터(컨트롤 노드)를 설정한다.
 
 # sudo ip addr replace 192.168.56.110/24 brd 192.168.56.255 dev eth1
-sudo ip addr replace 192.168.56.110/24 brd + dev eth1
+sudo ip addr replace 192.168.56.110/24 brd 192.168.56.255 dev eth1
+sudo ifconfig eth1 broadcast 192.168.255.255
 
 ip link set eth1 up
 
